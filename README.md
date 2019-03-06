@@ -1,2 +1,2 @@
 # heycar-challenge
-My repository for the hey car interview challenge.
+My com.heycar.listings.repositories for the hey car interview challenge.
