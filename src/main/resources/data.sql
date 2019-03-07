@@ -1,3 +1,5 @@
+-- This is for demo purposes using the H2 in memory DB.
+
 -- Create dealers
 INSERT INTO DEALER(id) VALUES(1)
 
