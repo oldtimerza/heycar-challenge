@@ -12,8 +12,18 @@ Notes along the way:
 
     - Spring initializr is a fantastic tool to get a project working in minimal time.
 
+    - The challenge document has an error in the CSV example: 1,mercedes/a 180,123,2014,black,15950 is missing a comma before 180
+
+    - Postman is a great tool for testing REST endpoints quickly while developing.
+
+Problems encountered:
+
+    - Hashcode checks need to actually use properties that are available to both listings, listings coming from endpoint dont have a dealerid.
+
+    - cascading save not working for dealer->listings
+
 Things I would like to add:
 
-    - Caching to speed up search results.
+    - Caching to speed up search results. Using something like hazel cast.
 
-    - Some kind of logging filtering.
+    - Some kind of logging filtering. Using something like logback.

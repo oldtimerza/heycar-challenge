@@ -28,12 +28,14 @@ public class DealerService {
         }
 
         Dealer dealer = possibleDealer.get();
-        listings.forEach(listing -> createOrUpdate(dealer.getListings(), listing));
+        listings.forEach(listing -> createOrUpdate(dealerId, dealer.getListings(), listing));
+
+        dealerRepository.saveAndFlush(dealer);
 
         return dealer;
     }
 
-    private void createOrUpdate(List<Listing> dealerListings, Listing listing) {
+    private void createOrUpdate(Long dealerId, List<Listing> dealerListings, Listing listing) {
         Stream<Listing> dealerListingsStream = dealerListings.stream();
         Optional<Listing> possibleListing = dealerListingsStream.filter(dealerListing -> dealerListing.hashCode() == listing.hashCode()).findFirst();
         if(possibleListing.isPresent()) {
@@ -46,6 +48,7 @@ public class DealerService {
             existingListing.setYear(listing.getYear());
             existingListing.setPrice(listing.getPrice());
         }else {
+            listing.setDealerId(dealerId);
             dealerListings.add(listing);
         }
     }

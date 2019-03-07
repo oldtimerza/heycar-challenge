@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -77,6 +78,8 @@ public class DealerServiceTest {
 
         List<Listing> expectedListings = Arrays.asList(listing, newListing);
         Assert.assertEquals(expectedListings, dealer.getListings());
+
+        verify(dealerRepository).save(eq(dealer));
     }
 
     @Test
@@ -96,5 +99,7 @@ public class DealerServiceTest {
 
         List<Listing> expectedListings = Arrays.asList(updatedListing);
         Assert.assertEquals(expectedListings, dealer.getListings());
+
+        verify(dealerRepository).save(eq(dealer));
     }
 }

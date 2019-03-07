@@ -1,5 +1,8 @@
 package com.heycar.heycarchallenge.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -11,17 +14,27 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "LISTING")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Listing {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Long id;
+    @JsonIgnore
     private Long dealerId;
+    @JsonProperty("code")
     private String code;
+    @JsonProperty("make")
     private String make;
+    @JsonProperty("model")
     private String model;
+    @JsonProperty("kW")
     private Long kiloWatts;
+    @JsonProperty("year")
     private Long year;
+    @JsonProperty("color")
     private String color;
+    @JsonProperty("price")
     private Long price;
 
     @Override
@@ -42,7 +55,7 @@ public class Listing {
 
     @Override
     public int hashCode() {
-        return Objects.hash(dealerId, code);
+        return Objects.hash(code);
     }
 
 }
