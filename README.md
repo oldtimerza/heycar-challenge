@@ -15,3 +15,5 @@ Notes along the way:
 Things I would like to add:
 
     - Caching to speed up search results.
+
+    - Some kind of logging filtering.
