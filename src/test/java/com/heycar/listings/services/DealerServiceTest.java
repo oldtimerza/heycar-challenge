@@ -2,6 +2,7 @@ package com.heycar.listings.services;
 
 import com.heycar.heycarchallenge.domain.entity.Dealer;
 import com.heycar.heycarchallenge.domain.entity.Listing;
+import com.heycar.heycarchallenge.domain.error.NonExistentDealerException;
 import com.heycar.heycarchallenge.domain.repository.DealerRepository;
 import com.heycar.heycarchallenge.services.DealerService;
 import org.junit.Assert;
@@ -22,11 +23,13 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DealerServiceTest {
-    private Long dealerId;
+    private Long dealerId = 1L;
 
     private Dealer dealer;
 
     private List<Listing> listings;
+
+    private Listing listing;
 
     @Mock
     private DealerRepository dealerRepository;
@@ -37,7 +40,8 @@ public class DealerServiceTest {
     @Before
     public void setup() {
         listings = new ArrayList<>();
-        Listing listing = new Listing();
+
+        listing = new Listing();
         listing.setPrice(1L);
         listing.setYear(2014L);
         listing.setModel("Figo");
@@ -47,11 +51,21 @@ public class DealerServiceTest {
         listing.setDealerId(dealerId);
         listing.setCode("code");
         listings.add(listing);
+
         dealer = new Dealer();
         dealer.setId(dealerId);
         dealer.setListings(listings);
+
         Optional<Dealer> possibleDealer = Optional.of(dealer);
+
         when(dealerRepository.findById(eq(dealerId))).thenReturn(possibleDealer);
+    }
+
+    @Test(expected = NonExistentDealerException.class)
+    public void updateListings_withNonExistantDealer_shouldThrowError(){
+        Long nonExistentDealerId = 999L;
+
+        dealerService.updateListings(nonExistentDealerId, new ArrayList<>());
     }
 
     @Test
@@ -61,6 +75,26 @@ public class DealerServiceTest {
 
         dealerService.updateListings(dealerId, newListings);
 
-        Assert.assertEquals(2, dealer.getListings().size());
+        List<Listing> expectedListings = Arrays.asList(listing, newListing);
+        Assert.assertEquals(expectedListings, dealer.getListings());
+    }
+
+    @Test
+    public void updateListings_withExistingListing_shouldUpdateCurrentListing(){
+        Listing updatedListing = new Listing();
+        updatedListing.setCode(listing.getCode());
+        updatedListing.setPrice(1L);
+        updatedListing.setYear(2014L);
+        updatedListing.setModel("NotAFigo");
+        updatedListing.setMake("NotAFord");
+        updatedListing.setKiloWatts(140L);
+        updatedListing.setColor("red");
+        updatedListing.setDealerId(dealerId);
+        List<Listing> newListings = Arrays.asList(updatedListing);
+
+        dealerService.updateListings(dealerId, newListings);
+
+        List<Listing> expectedListings = Arrays.asList(updatedListing);
+        Assert.assertEquals(expectedListings, dealer.getListings());
     }
 }

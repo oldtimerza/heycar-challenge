@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @Service
 public class DealerService {
 
-    private DealerRepository dealerRepository;
+    private final DealerRepository dealerRepository;
 
     @Autowired
     public DealerService(DealerRepository dealerRepository) {
@@ -29,14 +29,14 @@ public class DealerService {
 
         Dealer dealer = possibleDealer.get();
         listings.forEach(listing -> createOrUpdate(dealer.getListings(), listing));
+
         return dealer;
     }
 
     private void createOrUpdate(List<Listing> dealerListings, Listing listing) {
         Stream<Listing> dealerListingsStream = dealerListings.stream();
-        Optional<Listing> possibleListing = dealerListingsStream.filter(dealerListing -> dealerListing.equals(listing)).findFirst();
-        if(possibleListing.isPresent()){
-            //update it
+        Optional<Listing> possibleListing = dealerListingsStream.filter(dealerListing -> dealerListing.hashCode() == listing.hashCode()).findFirst();
+        if(possibleListing.isPresent()) {
             Listing existingListing = possibleListing.get();
             existingListing.setCode(listing.getCode());
             existingListing.setColor(listing.getColor());
@@ -45,8 +45,8 @@ public class DealerService {
             existingListing.setModel(listing.getModel());
             existingListing.setYear(listing.getYear());
             existingListing.setPrice(listing.getPrice());
+        }else {
+            dealerListings.add(listing);
         }
-        //otherwise create it
-        dealerListings.add(listing);
     }
 }
