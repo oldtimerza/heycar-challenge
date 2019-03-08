@@ -2,13 +2,15 @@ package com.heycar.listings.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.heycar.heycarchallenge.domain.dto.CsvListing;
 import com.heycar.heycarchallenge.domain.entity.Dealer;
 import com.heycar.heycarchallenge.domain.entity.Listing;
 import com.heycar.heycarchallenge.domain.error.ApiError;
 import com.heycar.heycarchallenge.logging.LogBuilder;
 import com.heycar.heycarchallenge.services.DealerService;
 import com.heycar.heycarchallenge.web.DealerController;
-import io.swagger.annotations.Api;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -118,4 +120,6 @@ public class DealerControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(content().json(errorJson));
     }
+
+    //TODO write tests for csv endpoints
 }

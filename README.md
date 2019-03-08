@@ -12,9 +12,9 @@ Notes along the way:
 
     - Spring initializr is a fantastic tool to get a project working in minimal time.
 
-    - The challenge document has an error in the CSV example: 1,mercedes/a 180,123,2014,black,15950 is missing a comma before 180
-
     - Postman is a great tool for testing REST endpoints quickly while developing.
+
+    - Last line of CSV example (4,skoda/octavia,86,2018,16990) is missing the color
 
 Problems encountered:
 
