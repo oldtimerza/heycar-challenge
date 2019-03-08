@@ -49,7 +49,7 @@ public class DealerServiceTest {
         listing.setMake("Ford");
         listing.setKiloWatts(140L);
         listing.setColor("white");
-        listing.setDealerId(dealerId);
+        listing.setDealer(dealer);
         listing.setCode("code");
         listings.add(listing);
 
@@ -79,7 +79,7 @@ public class DealerServiceTest {
         List<Listing> expectedListings = Arrays.asList(listing, newListing);
         Assert.assertEquals(expectedListings, dealer.getListings());
 
-        verify(dealerRepository).save(eq(dealer));
+        verify(dealerRepository).saveAndFlush(eq(dealer));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class DealerServiceTest {
         updatedListing.setMake("NotAFord");
         updatedListing.setKiloWatts(140L);
         updatedListing.setColor("red");
-        updatedListing.setDealerId(dealerId);
+        updatedListing.setDealer(dealer);
         List<Listing> newListings = Arrays.asList(updatedListing);
 
         dealerService.updateListings(dealerId, newListings);
@@ -100,6 +100,6 @@ public class DealerServiceTest {
         List<Listing> expectedListings = Arrays.asList(updatedListing);
         Assert.assertEquals(expectedListings, dealer.getListings());
 
-        verify(dealerRepository).save(eq(dealer));
+        verify(dealerRepository).saveAndFlush(eq(dealer));
     }
 }

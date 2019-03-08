@@ -12,6 +12,6 @@ public class Dealer {
     @Id
     private Long id;
 
-    @OneToMany(mappedBy = "dealerId", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "dealer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Listing> listings;
 }

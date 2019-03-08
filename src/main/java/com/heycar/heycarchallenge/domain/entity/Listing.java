@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Data
@@ -17,11 +14,13 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Listing {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
     @JsonIgnore
-    private Long dealerId;
+    @ManyToOne()
+    @JoinColumn(referencedColumnName = "id")
+    private Dealer dealer;
     @JsonProperty("code")
     private String code;
     @JsonProperty("make")
@@ -43,7 +42,7 @@ public class Listing {
         if (o == null || getClass() != o.getClass()) return false;
         Listing listing = (Listing) o;
         return Objects.equals(id, listing.id) &&
-                Objects.equals(dealerId, listing.dealerId) &&
+                Objects.equals(dealer, listing.dealer) &&
                 Objects.equals(code, listing.code) &&
                 Objects.equals(make, listing.make) &&
                 Objects.equals(model, listing.model) &&
@@ -58,4 +57,19 @@ public class Listing {
         return Objects.hash(code);
     }
 
+    @Override
+    public String toString() {
+        Long dealerId = dealer == null ? 0 : dealer.getId();
+        return "Listing{" +
+                "id=" + id +
+                ", dealerId=" + dealerId +
+                ", code='" + code + '\'' +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", kiloWatts=" + kiloWatts +
+                ", year=" + year +
+                ", color='" + color + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
