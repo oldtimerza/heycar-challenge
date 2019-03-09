@@ -103,7 +103,7 @@ public class DealerControllerTest {
 
     @Test
     public void updateListingsJson_whenGivenListings_shouldCallServiceUpdateListings() throws Exception {
-        ResultActions result = mockMvc.perform(post("/vehicle-heycarchallenge/{dealerId}", dealer.getId())
+        ResultActions result = mockMvc.perform(post("/vehicle_listings/{dealerId}", dealer.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(listingJson)
                 .accept(MediaType.APPLICATION_JSON));
@@ -120,7 +120,7 @@ public class DealerControllerTest {
         RuntimeException exception = new RuntimeException("Something went wrong");
         when(dealerService.updateListings(any(), anyList())).thenThrow(exception);
 
-        ResultActions result = mockMvc.perform(post("/vehicle-heycarchallenge/{dealerId}", dealer.getId())
+        ResultActions result = mockMvc.perform(post("/vehicle_listings/{dealerId}", dealer.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(listingJson)
                 .accept(MediaType.APPLICATION_JSON));

@@ -33,7 +33,7 @@ public class DealerController {
     @Autowired
     private ListingMapper listingMapper;
 
-    @RequestMapping(value = "/vehicle-heycarchallenge/{dealerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/vehicle_listings/{dealerId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity updateListingsJson(@PathVariable Long dealerId, @RequestBody List<Listing> listings) {
         log
@@ -42,9 +42,9 @@ public class DealerController {
                 .withDate(new Date())
                 .withMethod("updateListingsJson")
                 .withParameter("dealerId", dealerId)
-                .withParameter("heycarchallenge", listings)
+                .withParameter("listings", listings)
                 .info();
-        try {
+    try {
             Dealer dealer = dealerService.updateListings(dealerId, listings);
 
             log
@@ -53,7 +53,7 @@ public class DealerController {
                     .withDate(new Date())
                     .withMethod("updateListingsJson")
                     .withParameter("dealerId", dealerId)
-                    .withParameter("heycarchallenge", listings)
+                    .withParameter("listings", listings)
                     .info();
 
             return new ResponseEntity(dealer, HttpStatus.OK);
@@ -64,7 +64,7 @@ public class DealerController {
                     .withDate(new Date())
                     .withMethod("updateListingsJson")
                     .withParameter("dealerId", dealerId)
-                    .withParameter("heycarchallenge", listings)
+                    .withParameter("listings", listings)
                     .withError(e)
                     .error();
 
