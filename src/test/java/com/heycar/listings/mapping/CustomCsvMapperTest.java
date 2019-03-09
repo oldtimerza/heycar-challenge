@@ -1,22 +1,21 @@
 package com.heycar.listings.mapping;
 
 import com.heycar.heycarchallenge.domain.dto.CsvListing;
-import com.heycar.heycarchallenge.mapping.CsvListingMapper;
+import com.heycar.heycarchallenge.mapping.CustomCsvMapper;
+import com.heycar.listings.utils.CsvTestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class CsvListingMapperTest {
+public class CustomCsvMapperTest {
     @Test
     public void map_whenGivenCsvData_shouldReturnListCsvListings() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("csv-listings.csv").getFile());
-        FileInputStream stream = new FileInputStream(file);
-        CsvListingMapper mapper = new CsvListingMapper();
+        CsvTestUtils testUtils = new CsvTestUtils();
+        FileInputStream stream = testUtils.loadCsvFile("csv-listings.csv");
+        CustomCsvMapper<CsvListing> mapper = new CustomCsvMapper(CsvListing.class);
 
         List<CsvListing> csvListings = mapper.map(stream);
 

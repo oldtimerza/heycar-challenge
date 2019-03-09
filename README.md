@@ -16,6 +16,8 @@ Notes along the way:
 
     - Last line of CSV example (4,skoda/octavia,86,2018,16990) is missing the color
 
+    - Make it work first and foremost, then make the code pretty, then optimise it to make it fast.
+
 Problems encountered:
 
     - Hashcode checks need to actually use properties that are available to both listings, listings coming from endpoint dont have a dealerid.

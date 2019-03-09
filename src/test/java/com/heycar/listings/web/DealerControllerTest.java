@@ -2,21 +2,27 @@ package com.heycar.listings.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.heycar.heycarchallenge.converting.CsvListingsConverter;
 import com.heycar.heycarchallenge.domain.dto.CsvListing;
+import com.heycar.heycarchallenge.domain.dto.CsvListings;
 import com.heycar.heycarchallenge.domain.entity.Dealer;
 import com.heycar.heycarchallenge.domain.entity.Listing;
 import com.heycar.heycarchallenge.domain.error.ApiError;
 import com.heycar.heycarchallenge.logging.LogBuilder;
+import com.heycar.heycarchallenge.mapping.CustomCsvMapper;
+import com.heycar.heycarchallenge.mapping.ListingMapper;
 import com.heycar.heycarchallenge.services.DealerService;
 import com.heycar.heycarchallenge.web.DealerController;
+import com.heycar.listings.utils.CsvTestUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.JsonbHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.protobuf.ProtobufJsonFormatHttpMessageConverter;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -40,6 +46,9 @@ public class DealerControllerTest {
 
     @Mock
     private LogBuilder logBuilder;
+
+    @Mock
+    private ListingMapper listingMapper;
 
     @InjectMocks
     private DealerController dealerController;
@@ -85,7 +94,15 @@ public class DealerControllerTest {
         dealer.setListings(listings);
         when(dealerService.updateListings(any(), any())).thenReturn(dealer);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(dealerController).build();
+        when(listingMapper.map(any())).thenReturn(listing);
+
+        CustomCsvMapper<CsvListing> csvMapper = new CustomCsvMapper<>(CsvListing.class);
+        CsvListingsConverter csvListingsConverter = new CsvListingsConverter(csvMapper);
+        MappingJackson2HttpMessageConverter defaultJsonConverter = new MappingJackson2HttpMessageConverter();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(dealerController)
+                .setMessageConverters(defaultJsonConverter, csvListingsConverter)
+                .build();
     }
 
     @Test
@@ -95,12 +112,11 @@ public class DealerControllerTest {
                 .content(listingJson)
                 .accept(MediaType.APPLICATION_JSON));
 
-        verify(dealerService).updateListings(eq(dealer.getId()), eq(listings));
-
         String expectedResponse = mapper.writeValueAsString(dealer);
         result.andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(content().json(expectedResponse));
+        verify(dealerService).updateListings(eq(dealer.getId()), eq(listings));
     }
 
     @Test
@@ -121,5 +137,20 @@ public class DealerControllerTest {
                 .andExpect(content().json(errorJson));
     }
 
-    //TODO write tests for csv endpoints
+    @Test
+    public void updateListingsCsv_whenGivenCsvData_shouldCallUpdateListings() throws Exception {
+        CsvTestUtils testUtils = new CsvTestUtils();
+        String csvContents = testUtils.readCsvFile("controller-csv.csv");
+
+        ResultActions result = mockMvc.perform(post("/upload_csv/{dealerId}", dealer.getId())
+                .contentType(CsvListingsConverter.MEDIA_TYPE)
+                .content(csvContents)
+                .accept(MediaType.APPLICATION_JSON));
+
+        String expectedResponse = mapper.writeValueAsString(dealer);
+        result.andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().json(expectedResponse));
+        verify(dealerService).updateListings(eq(dealer.getId()), eq(listings));
+    }
 }
