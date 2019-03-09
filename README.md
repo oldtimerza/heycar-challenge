@@ -4,6 +4,14 @@ My application for the hey car interview challenge.
 Useful commands:
 
     - mvnw clean install, this will build the project, run the tests and create a docker image.
+    
+Extras:
+
+    - simple logging using logsl4j with markers.
+    
+    - Swagger 2 api documentation.
+    
+    - dockerfile-maven and Dockerfile to create docker image for project.
 
 Notes along the way:
 
