@@ -1,10 +1,9 @@
-package com.heycar.listings.services;
+package com.heycar.heycarchallenge.services;
 
 import com.heycar.heycarchallenge.domain.entity.Dealer;
 import com.heycar.heycarchallenge.domain.entity.Listing;
 import com.heycar.heycarchallenge.domain.error.NonExistentDealerException;
 import com.heycar.heycarchallenge.domain.repository.DealerRepository;
-import com.heycar.heycarchallenge.services.DealerService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

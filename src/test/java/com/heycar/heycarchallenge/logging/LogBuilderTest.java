@@ -1,7 +1,5 @@
-package com.heycar.listings.logging;
+package com.heycar.heycarchallenge.logging;
 
-import com.heycar.heycarchallenge.logging.LogBuilder;
-import com.heycar.heycarchallenge.logging.Markers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

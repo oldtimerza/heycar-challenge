@@ -1,9 +1,8 @@
-package com.heycar.listings.mapping;
+package com.heycar.heycarchallenge.mapping;
 
 import com.heycar.heycarchallenge.domain.dto.CsvListing;
 import com.heycar.heycarchallenge.domain.dto.CsvMakeModel;
 import com.heycar.heycarchallenge.domain.entity.Listing;
-import com.heycar.heycarchallenge.mapping.ListingMapper;
 import org.junit.Assert;
 import org.junit.Test;
 

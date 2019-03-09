@@ -1,11 +1,10 @@
-package com.heycar.listings.web;
+package com.heycar.heycarchallenge.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heycar.heycarchallenge.domain.entity.Listing;
 import com.heycar.heycarchallenge.domain.error.ApiError;
 import com.heycar.heycarchallenge.logging.LogBuilder;
 import com.heycar.heycarchallenge.services.ListingService;
-import com.heycar.heycarchallenge.web.ListingController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

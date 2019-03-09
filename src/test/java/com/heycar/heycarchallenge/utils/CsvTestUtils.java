@@ -1,4 +1,4 @@
-package com.heycar.listings.utils;
+package com.heycar.heycarchallenge.utils;
 
 import org.apache.commons.io.IOUtils;
 

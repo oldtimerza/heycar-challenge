@@ -1,8 +1,7 @@
-package com.heycar.listings.services;
+package com.heycar.heycarchallenge.services;
 
 import com.heycar.heycarchallenge.domain.entity.Listing;
 import com.heycar.heycarchallenge.domain.repository.ListingRepository;
-import com.heycar.heycarchallenge.services.ListingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

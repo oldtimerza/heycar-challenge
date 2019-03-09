@@ -1,4 +1,4 @@
-package com.heycar.listings.web;
+package com.heycar.heycarchallenge.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,8 +11,7 @@ import com.heycar.heycarchallenge.logging.LogBuilder;
 import com.heycar.heycarchallenge.mapping.CustomCsvMapper;
 import com.heycar.heycarchallenge.mapping.ListingMapper;
 import com.heycar.heycarchallenge.services.DealerService;
-import com.heycar.heycarchallenge.web.DealerController;
-import com.heycar.listings.utils.CsvTestUtils;
+import com.heycar.heycarchallenge.utils.CsvTestUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -104,7 +103,7 @@ public class DealerControllerTest {
 
     @Test
     public void updateListingsJson_whenGivenListings_shouldCallServiceUpdateListings() throws Exception {
-        ResultActions result = mockMvc.perform(post("/vehicle-listings/{dealerId}", dealer.getId())
+        ResultActions result = mockMvc.perform(post("/vehicle-heycarchallenge/{dealerId}", dealer.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(listingJson)
                 .accept(MediaType.APPLICATION_JSON));
@@ -121,7 +120,7 @@ public class DealerControllerTest {
         RuntimeException exception = new RuntimeException("Something went wrong");
         when(dealerService.updateListings(any(), anyList())).thenThrow(exception);
 
-        ResultActions result = mockMvc.perform(post("/vehicle-listings/{dealerId}", dealer.getId())
+        ResultActions result = mockMvc.perform(post("/vehicle-heycarchallenge/{dealerId}", dealer.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(listingJson)
                 .accept(MediaType.APPLICATION_JSON));

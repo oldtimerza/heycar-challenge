@@ -33,7 +33,7 @@ public class DealerController {
     @Autowired
     private ListingMapper listingMapper;
 
-    @RequestMapping(value = "/vehicle-listings/{dealerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/vehicle-heycarchallenge/{dealerId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity updateListingsJson(@PathVariable Long dealerId, @RequestBody List<Listing> listings) {
         log
@@ -42,7 +42,7 @@ public class DealerController {
                 .withDate(new Date())
                 .withMethod("updateListingsJson")
                 .withParameter("dealerId", dealerId)
-                .withParameter("listings", listings)
+                .withParameter("heycarchallenge", listings)
                 .info();
         try {
             Dealer dealer = dealerService.updateListings(dealerId, listings);
@@ -53,7 +53,7 @@ public class DealerController {
                     .withDate(new Date())
                     .withMethod("updateListingsJson")
                     .withParameter("dealerId", dealerId)
-                    .withParameter("listings", listings)
+                    .withParameter("heycarchallenge", listings)
                     .info();
 
             return new ResponseEntity(dealer, HttpStatus.OK);
@@ -64,7 +64,7 @@ public class DealerController {
                     .withDate(new Date())
                     .withMethod("updateListingsJson")
                     .withParameter("dealerId", dealerId)
-                    .withParameter("listings", listings)
+                    .withParameter("heycarchallenge", listings)
                     .withError(e)
                     .error();
 
@@ -96,7 +96,7 @@ public class DealerController {
                     .withDate(new Date())
                     .withMethod("updateListingsCsv")
                     .withParameter("dealerId", dealerId)
-                    .withParameter("listings", mappedListings)
+                    .withParameter("heycarchallenge", mappedListings)
                     .info();
 
             return new ResponseEntity(dealer, HttpStatus.OK);
