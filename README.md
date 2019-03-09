@@ -1,6 +1,10 @@
 # heycar-challenge
 My application for the hey car interview challenge.
 
+Useful commands:
+
+    - mvnw clean install, this will build the project, run the tests and create a docker image.
+
 Notes along the way:
 
     - Relational DB is a better fit over a document based DB. This is because of the need to search on Listings independently of Dealers.
@@ -31,3 +35,5 @@ Things I would like to add:
     - Some kind of logging filtering. Using something like logback.
 
     - Hypermedia as the Engine of Application State. Create some kind of URI appender for the responses to make the API self discoverable.
+
+    - Docker image deployment to docker hub.
