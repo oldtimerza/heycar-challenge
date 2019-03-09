@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,12 +56,14 @@ public class DealerControllerTest {
 
     private String listingJson;
 
+    private String csvContents;
+
     private Dealer dealer;
 
     private List<Listing> listings;
 
     @Before
-    public void setup() throws JsonProcessingException {
+    public void setup() throws IOException {
         when(logBuilder.withLogger(any())).thenReturn(logBuilder);
         when(logBuilder.withMethod(any())).thenReturn(logBuilder);
         when(logBuilder.withDate(any())).thenReturn(logBuilder);
@@ -92,6 +95,8 @@ public class DealerControllerTest {
 
         when(listingMapper.map(any())).thenReturn(listing);
 
+        CsvTestUtils testUtils = new CsvTestUtils();
+        csvContents = testUtils.readCsvFile("controller-csv.csv");
         CustomCsvMapper<CsvListing> csvMapper = new CustomCsvMapper<>(CsvListing.class);
         CsvListingsConverter csvListingsConverter = new CsvListingsConverter(csvMapper);
         MappingJackson2HttpMessageConverter defaultJsonConverter = new MappingJackson2HttpMessageConverter();
@@ -135,9 +140,6 @@ public class DealerControllerTest {
 
     @Test
     public void updateListingsCsv_whenGivenCsvData_shouldCallUpdateListings() throws Exception {
-        CsvTestUtils testUtils = new CsvTestUtils();
-        String csvContents = testUtils.readCsvFile("controller-csv.csv");
-
         ResultActions result = mockMvc.perform(post("/upload_csv/{dealerId}", dealer.getId())
                 .contentType(CsvListingsConverter.MEDIA_TYPE)
                 .content(csvContents)
@@ -148,5 +150,24 @@ public class DealerControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(content().json(expectedResponse));
         verify(dealerService).updateListings(eq(dealer.getId()), eq(listings));
+    }
+
+
+    @Test
+    public void updateListingsCsv_whenAnErrorOccurs_shouldReturnAnError() throws Exception {
+        RuntimeException exception = new RuntimeException("Something went wrong");
+        when(dealerService.updateListings(any(), anyList())).thenThrow(exception);
+
+        ResultActions result = mockMvc.perform(post("/upload_csv/{dealerId}", dealer.getId())
+                .contentType(CsvListingsConverter.MEDIA_TYPE)
+                .content(csvContents)
+                .accept(MediaType.APPLICATION_JSON));
+
+
+        ApiError expectedError = ApiError.fromException(exception);
+        String errorJson = mapper.writeValueAsString(expectedError);
+        result.andExpect(status().is5xxServerError())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().json(errorJson));
     }
 }

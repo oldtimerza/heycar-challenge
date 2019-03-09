@@ -34,7 +34,6 @@ public class DealerController {
     private ListingMapper listingMapper;
 
     @RequestMapping(value = "/vehicle_listings/{dealerId}", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity updateListingsJson(@PathVariable Long dealerId, @RequestBody List<Listing> listings) {
         log
                 .withLogger(logger)
@@ -75,7 +74,6 @@ public class DealerController {
 
 
     @RequestMapping(value = "/upload_csv/{dealerId}", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity updateListingsCsv(@PathVariable Long dealerId, @RequestBody CsvListings csvListings) {
         try {
             log

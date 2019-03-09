@@ -30,7 +30,6 @@ public class ListingController {
     private ListingService listingService;
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity search(
             @RequestParam(required = false) String make,
             @RequestParam(required = false) String model,
