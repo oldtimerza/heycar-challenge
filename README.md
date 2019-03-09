@@ -1,5 +1,5 @@
 # heycar-challenge
-My com.heycar.listings.repositories for the hey car interview challenge.
+My application for the hey car interview challenge.
 
 Notes along the way:
 
@@ -20,12 +20,14 @@ Notes along the way:
 
 Problems encountered:
 
-    - Hashcode checks need to actually use properties that are available to both listings, listings coming from endpoint dont have a dealerid.
+    - Non standard CSV format required a bit of extra mapping work done.
 
-    - cascading save not working for dealer->listings
+    - Not splitting the Listing model initially into domain and dto made it more difficult to handle two different input formats.
 
 Things I would like to add:
 
     - Caching to speed up search results. Using something like hazel cast.
 
     - Some kind of logging filtering. Using something like logback.
+
+    - Hypermedia as the Engine of Application State. Create some kind of URI appender for the responses to make the API self discoverable.

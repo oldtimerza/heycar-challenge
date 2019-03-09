@@ -1,13 +1,11 @@
 package com.heycar.heycarchallenge.web;
 
-import com.heycar.heycarchallenge.domain.dto.CsvListing;
 import com.heycar.heycarchallenge.domain.dto.CsvListings;
 import com.heycar.heycarchallenge.domain.entity.Dealer;
 import com.heycar.heycarchallenge.domain.entity.Listing;
 import com.heycar.heycarchallenge.domain.error.ApiError;
 import com.heycar.heycarchallenge.logging.LogBuilder;
 import com.heycar.heycarchallenge.logging.Markers;
-import com.heycar.heycarchallenge.mapping.CustomCsvMapper;
 import com.heycar.heycarchallenge.mapping.ListingMapper;
 import com.heycar.heycarchallenge.services.DealerService;
 import org.slf4j.Logger;
