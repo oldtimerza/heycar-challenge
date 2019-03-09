@@ -29,7 +29,7 @@ public class ListingController {
     @Autowired
     private ListingService listingService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity search(
             @RequestParam(required = false) String make,
