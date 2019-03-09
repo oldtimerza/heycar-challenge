@@ -7,7 +7,7 @@ Useful commands:
     
 Extras:
 
-    - simple logging using logsl4j with markers.
+    - Simple logging using logsl4j with markers. Should switch to logback to handle logging formatting and remove log bulder.
     
     - Swagger 2 api documentation.
     
@@ -39,8 +39,6 @@ Problems encountered:
 Things I would like to add:
 
     - Caching to speed up search results. Using something like hazel cast.
-
-    - Some kind of logging filtering. Using something like logback.
 
     - Hypermedia as the Engine of Application State. Create some kind of URI appender for the responses to make the API self discoverable.
 
