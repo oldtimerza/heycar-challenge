@@ -9,9 +9,9 @@ Up and running:
 
 Testing and reports:
 
-- mvnw test
+    - mvnw test
 
-- mvnw jacoco:report , this will create a readable reports html file at target/site/jacoco/index.html
+    - mvnw jacoco:report , this will create a readable reports html file at target/site/jacoco/index.html
     
 Extras:
 
