@@ -4,6 +4,14 @@ My application for the hey car interview challenge.
 Useful commands:
 
     - mvnw clean install, this will build the project, run the tests and create a docker image.
+    
+Extras:
+
+    - Simple logging using logsl4j with markers. Should switch to logback to handle logging formatting and remove log bulder.
+    
+    - Swagger 2 api documentation.
+    
+    - dockerfile-maven and Dockerfile to create docker image for project.
 
 Notes along the way:
 
@@ -31,8 +39,6 @@ Problems encountered:
 Things I would like to add:
 
     - Caching to speed up search results. Using something like hazel cast.
-
-    - Some kind of logging filtering. Using something like logback.
 
     - Hypermedia as the Engine of Application State. Create some kind of URI appender for the responses to make the API self discoverable.
 
