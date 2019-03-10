@@ -40,7 +40,7 @@ public class LogBuilderTest {
 
 
     @Test
-    public void info_whenGivenErrorInfo_shouldCallLoggingErrorWithException() {
+    public void error_whenGivenErrorInfo_shouldCallLoggingErrorWithException() {
         Date date = new Date(2013, 12, 01, 8,15, 00);
         String method = "updateListings";
         Exception exception = new Exception("Something went wrong");
