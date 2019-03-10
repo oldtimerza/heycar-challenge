@@ -2,6 +2,7 @@ package com.heycar.heycarchallenge.mapping;
 
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvParser;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class CustomCsvMapper<T> {
     public CustomCsvMapper(Class<T> type) {
         CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
         CsvMapper csvMapper = new CsvMapper();
-        objectReader = csvMapper.readerFor(type).with(bootstrapSchema);
+        objectReader = csvMapper.readerFor(type).with(bootstrapSchema).withFeatures(CsvParser.Feature.FAIL_ON_MISSING_COLUMNS);
     }
 
     public List<T> map(InputStream stream) throws IOException {

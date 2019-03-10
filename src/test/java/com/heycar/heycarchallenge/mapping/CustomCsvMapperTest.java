@@ -6,13 +6,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 public class CustomCsvMapperTest {
+    private CsvTestUtils testUtils = new CsvTestUtils();
     @Test
     public void map_whenGivenCsvData_shouldReturnListCsvListings() throws IOException {
-        CsvTestUtils testUtils = new CsvTestUtils();
         FileInputStream stream = testUtils.loadCsvFile("csv-listings.csv");
         CustomCsvMapper<CsvListing> mapper = new CustomCsvMapper(CsvListing.class);
 
@@ -27,5 +28,13 @@ public class CustomCsvMapperTest {
         Assert.assertEquals("2014", firstListing.getYear());
         Assert.assertEquals("black", firstListing.getColor());
         Assert.assertEquals("15950", firstListing.getPrice());
+    }
+
+    @Test(expected = IOException.class)
+    public void map_whenCsvDataMissingColumn_shouldThrowException() throws IOException {
+        FileInputStream stream = testUtils.loadCsvFile("csv-listings-missing-column.csv");
+        CustomCsvMapper<CsvListing> mapper = new CustomCsvMapper(CsvListing.class);
+
+        List<CsvListing> csvListings = mapper.map(stream);
     }
 }
