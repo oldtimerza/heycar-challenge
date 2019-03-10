@@ -1,10 +1,12 @@
 # heycar-challenge
 My application for the hey car interview challenge.
 
-Useful commands:
+Up and running:
 
     - mvnw clean install, this will build the project, run the tests and create a docker image.
 
+    - docker run -p 8080:8080 --name heycar oldtimerza/heycar-challenge
+    
 Notes along the way:
 
     - Relational DB is a better fit over a document based DB. This is because of the need to search on Listings independently of Dealers.
@@ -36,4 +38,4 @@ Things I would like to add:
 
     - Hypermedia as the Engine of Application State. Create some kind of URI appender for the responses to make the API self discoverable.
 
-    - Docker image deployment to docker hub.
+    - Docker image deployment to docker hub for mvnw deploy.
