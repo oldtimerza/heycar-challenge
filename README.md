@@ -6,6 +6,12 @@ Up and running:
     - mvnw clean install, this will build the project, run the tests and create a docker image.
     
     - docker run -p 8080:8080 --name heycar oldtimerza/heycar-challenge
+
+Testing and reports:
+
+- mvnw test
+
+- mvnw jacoco:report , this will create a readable reports html file at target/site/jacoco/index.html
     
 Extras:
 
