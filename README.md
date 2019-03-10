@@ -1,6 +1,12 @@
 # heycar-challenge
 My application for the hey car interview challenge.
 
+Requirements:
+
+    - JDK 8
+
+    - docker needs to be installed for the dockerfile to be built successfully.
+
 Up and running:
 
     - mvnw clean install, this will build the project, run the tests and create a docker image.
